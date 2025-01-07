@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>드래그앤드롭 합 구하기</title>
+    
+    <style>
+        @font-face {
+            font-family: 'HakgyoansimDunggeunmisoTTF-B';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+        *{
+            margin: 0; 
+            padding: 0;
+            font-family: 'HakgyoansimDunggeunmisoTTF-B';
+        }
+        .inputArea{
+            text-align: center;
+            padding: 30px;
+            margin: auto;
+            
+        }
+        .numArea{
+            width: 500px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+        }
+        .input{
+            width : 40px;
+            height : 30px;
+            border-radius: 20px;
+            font-size: 15px;
+            text-align: center;
+            border: none;
+            background-color: #ffe9ed;
+        }
+        .btn, .sumBtn {
+            width : 40px;
+            height: 40px;
+            border-radius: 20px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .sumBtn{
+            width: 80px;
+            background-color: #b392ac;
+            margin: auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="numArea" class="numArea"></div>
+    <div class="inputArea">
+        <input id="number1" class="input" type="number"> + <input id="number2" class="input" type="number"> = <input id="sum" class="input">
+    </div>
+    <button id="sumBtn" class="sumBtn">SUM</button>
+    <script>
+        let inputS = '';
+        for(let i=0; i<=9; i++){
+            inputS += `<button id="num${i}" id="drag${i}" class="btn" draggable="true" value="${i}">${i}</button>`
+        }
+        document.getElementById('numArea').innerHTML += inputS;
+
+        const btns = document.querySelectorAll('.btn');
+
+        btns.forEach((v)=>{
+            v.ondragstart = function(e){
+                e.dataTransfer.setData('data',this.innerHTML);
+                
+            }
+        })
+        const number1 = document.getElementById('number1');
+        const number2 = document.getElementById('number2');
+        const sum = document.getElementById('sum')
+        number1.ondragover = function(e){
+            e.preventDefault();
+        }
+        number2.ondragover = function(e){
+            e.preventDefault();
+        }
+        number1.ondrop = function(e){
+            number1.value = e.dataTransfer.getData('data');
+        }
+        number2.ondrop = function(e){
+            number2.value = e.dataTransfer.getData('data');
+        }
+        const sumBtn = document.getElementById('sumBtn');
+        sumBtn.addEventListener('click',()=>{
+            sum.value = Number(number1.value) + Number(number2.value);
+        })
+    </script>
+</body>
+</html>

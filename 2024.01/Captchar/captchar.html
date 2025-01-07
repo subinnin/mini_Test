@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>captChar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="totalArea" class="totalArea"></div>
+        <div class="keypad" id="keypad">
+    </div>
+    <script>
+        class CaptChar {
+            constructor(id) {
+                this.id = id;
+                this.captChar = '';
+            }
+            init(){
+                let htmlString = '';
+                htmlString += `
+                    <canvas id="canvas" width="200" height="100"></canvas>
+                    <div id="resultArea" class="resultArea"></div>
+                    <div class="inputArea">
+                        <label>확인 : <input id="inputCaptChar" class="inputCaptChar" type="text" maxlength="4" /></label>
+                        <button id="btn" class="btn">확인</button><button id="reBtn" class="reBtn">새로고침</button>
+                    </div>
+                    
+                `
+                document.getElementById('totalArea').innerHTML = htmlString
+            }
+            drawCanvas() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+
+                for (let i = 0; i < 4; i++) {
+                    this.captChar += Math.ceil(Math.random() * 10) - 1;
+                }   
+                
+                ctx.font = "30px Comic Sans MS"
+                ctx.fillStyle = "red";
+                ctx.textAlign = "center";
+                ctx.fillText(this.captChar, canvas.width/2, canvas.height/2)
+            }
+            eventListener() {
+                addEventListener('click', (e) => {
+                    switch (e.target.id) {
+                        case "btn":
+                            this.checkCaptchar();
+                            break;
+                        case "reBtn":
+                            location.reload();
+                            break;
+                    }
+                })
+            }
+            checkCaptchar() {
+                
+                const inputCaptChar = document.getElementById('inputCaptChar');
+                if (inputCaptChar.value === this.captChar) {
+                    document.getElementById('resultArea').innerHTML = "MATCH"
+                }else{
+                    document.getElementById('resultArea').innerHTML = "MISMATCH"
+                }
+            }
+            makeQueue(){
+                class Queue{
+                    constructor(id){
+                        this.id = id;
+                        this.storage = [];
+                    }
+                    pushItem(item){
+                        this.storage.push(item);
+                    }
+                    shiftItem(){
+                        return this.storage.shift()
+                    }
+                }
+                return Queue;
+            }
+            inputKeyPad(){
+                const Queue = this.makeQueue();
+                const usingQ = new Queue('usingQ');
+                for(let i=0; i<10; i++){
+                    usingQ.pushItem(i);
+                }
+                let tempA = [];
+                let countLength = usingQ.storage.length;
+                for(let i=0; i<countLength; i++){
+                    for(let i=0; i<Math.floor(Math.random()* (usingQ.storage.length+1)); i++){
+                        usingQ.pushItem(usingQ.shiftItem())
+                        console.log(usingQ.storage)
+                    }
+                    tempA.push(usingQ.shiftItem());
+                }
+
+                let inputPad = ''
+                
+                for(let i=0;i<10;i++){
+                    inputPad += `<button class="keypadBox" id="keypadBox">${tempA[i]}</button>`
+                }
+                document.getElementById('keypad').innerHTML = inputPad;
+
+                addEventListener('click',(e)=>{
+                    const inputCaptChar = document.getElementById('inputCaptChar');
+                    
+                    switch(e.target.innerHTML){
+                        case "0":
+                            inputCaptChar.value += "0"
+                            break;
+                        case "1":
+                            inputCaptChar.value += "1"
+                            break;
+                        case "2":
+                            inputCaptChar.value += "2"
+                            break;
+                        case "3":
+                            inputCaptChar.value += "3"
+                            break;
+                        case "4":
+                            inputCaptChar.value += "4"
+                            break;
+                        case "5":
+                            inputCaptChar.value += "5"
+                            break;
+                        case "6":
+                            inputCaptChar.value += "6"
+                            break;
+                        case "7":
+                            inputCaptChar.value += "7"
+                            break;
+                        case "8":
+                            inputCaptChar.value += "8"
+                            break;
+                        case "9":
+                            inputCaptChar.value += "9"
+                            break;
+                    }
+                })
+
+            }
+            run() {
+                this.init();
+                this.drawCanvas();
+                this.eventListener();
+                this.inputKeyPad();
+            }
+        }
+        class Button{
+            constructor(id) {
+                this.id = id;
+            }
+            // init(){
+            //     <button class="keypadBox" id="keypadBox_${this.id}${i}">${tempA[i]}</button>
+            // }
+        }
+        let tempA = [];
+        for(let i=0; i<10; i++){
+            tempA.push(new Button(`box${i}`))
+        }
+        console.log(tempA)
+        const captchar = new CaptChar('captchar');
+        captchar.run();
+
+
+    </script>
+</body>
+
+</html>

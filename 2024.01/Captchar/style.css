@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'GumiRomanceTTF'; }
+
+@font-face {
+  font-family: 'GumiRomanceTTF';
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/GumiRomanceTTF.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal; }
+body {
+  background-color: #ffe8d6;
+  font-family: 'GumiRomanceTTF'; }
+
+.totalArea {
+  text-align: center; }
+
+.inputArea {
+  width: 500px;
+  height: 50px;
+  margin-bottom: 10px;
+  margin: auto;
+  text-align: center; }
+  .inputArea .btn, .inputArea .reBtn {
+    width: 70px;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    cursor: pointer;
+    background-color: #ffb4a2; }
+  .inputArea .reBtn {
+    background-color: #e5989b; }
+
+.inputCaptChar {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  padding-left: 20px; }
+
+.resultArea {
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  margin: auto;
+  font-size: 20px; }
+
+.keypad {
+  width: 160px;
+  height: 50px;
+  margin: auto; }
+  .keypad .keypadBox {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+    display: inline-block;
+    cursor: pointer;
+    background-color: #ddbea9;
+    font-size: 20px; }
+
+.keypadBox:last-child {
+  position: relative;
+  left: 50px; }
+
+/*# sourceMappingURL=style.css.map */
